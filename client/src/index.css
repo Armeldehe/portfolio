@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    @apply bg-dark text-text-primary font-sans;
+    margin: 0;
+    padding: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-card;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-full;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-dark text-white font-semibold px-5 py-2.5 rounded-xl 
+           transition-all duration-200 flex items-center gap-2 shadow-violet hover:shadow-violet-lg;
+  }
+
+  .btn-secondary {
+    @apply bg-dark-muted hover:bg-dark-border text-text-primary font-semibold px-5 py-2.5 rounded-xl 
+           transition-all duration-200 border border-dark-border hover:border-primary;
+  }
+
+  .btn-danger {
+    @apply bg-red-600/10 hover:bg-red-600/20 text-red-400 border border-red-600/30 
+           hover:border-red-500 font-semibold px-4 py-2 rounded-xl transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-dark-card border border-dark-border rounded-2xl p-6 shadow-card 
+           hover:border-primary/30 hover:shadow-card-hover transition-all duration-300;
+  }
+
+  .input-field {
+    @apply w-full bg-dark-muted border border-dark-border rounded-xl px-4 py-3 
+           text-text-primary placeholder-text-muted 
+           focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 
+           transition-all duration-200;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-text-secondary mb-1.5;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-text-primary;
+  }
+
+  .stat-card {
+    @apply card flex items-center gap-5 cursor-default;
+  }
+
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4;
+  }
+
+  .modal-box {
+    @apply bg-dark-card border border-dark-border rounded-2xl shadow-violet-lg 
+           w-full max-w-2xl max-h-[90vh] overflow-y-auto;
+  }
+}
