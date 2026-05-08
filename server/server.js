@@ -47,7 +47,17 @@ const app = express();
 // ─────────────────────────────────────────────
 
 // Activation de CORS pour permettre les requêtes depuis le frontend
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://armeldev.vercel.app",
+  process.env.FRONTEND_URL
+].filter(Boolean);
+
+app.use(cors({
+  origin: allowedOrigins,
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
 
 // Parsing du corps des requêtes en JSON
 app.use(express.json());
@@ -73,6 +83,15 @@ app.use("/api/admin", adminRoutes);
 
 // Routes pour l'assistant IA
 app.use("/api/ai", aiRoutes);
+
+// Routes pour les designs Canva
+const designRoutes = require("./routes/designRoutes");
+app.use("/api/designs", designRoutes);
+
+// Route de Keep-Alive / Health Check
+app.get("/api/ping", (req, res) => {
+  res.status(200).json({ success: true, message: "Server is awake" });
+});
 
 // ─────────────────────────────────────────────
 // Route de test - Vérification du serveur
@@ -117,5 +136,6 @@ app.listen(PORT, () => {
   console.log(`   → POST   http://localhost:${PORT}/api/messages`);
   console.log(`   → GET    http://localhost:${PORT}/api/messages  [🔒 admin]`);
   console.log(`   → POST   http://localhost:${PORT}/api/admin/login`);
-  console.log(`   → GET    http://localhost:${PORT}/api/admin/profile [🔒 admin]\n`);
+  console.log(`   → GET    http://localhost:${PORT}/api/admin/profile [🔒 admin]`);
+  console.log(`   → PUT    http://localhost:${PORT}/api/admin/profile [🔒 admin]\n`);
 });
